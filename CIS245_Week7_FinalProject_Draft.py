@@ -5,11 +5,16 @@ while True:
     print('Welcome to the weather app!')
     userZip = input('Please enter your zip code to see your current weather or enter "q" to quit: ')
 
+    try:
+        userZip = int(userZip)
+    except ValueError:
+        print("Please enter a number.")
+        continue
+
     if userZip == 'q':
         print('Thank you for stopping by!')
         break
     else:
-        userZip = int(userZip)
         r = requests.get(f'https://api.openweathermap.org/data/2.5/weather?zip={userZip},us&units=imperial&appid=83a1ade6e787fb0206dc4f8bcfed4fda')
 
     returnedData = json.loads(r.text)
